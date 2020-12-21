@@ -1,0 +1,15 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/mixinify
+mixinify.so
+mixinify.dylib
+mixinify.dll
+mixinify.a
+mixinify.lib
+mixinify-test-*
+*.exe
+*.o
+*.obj
+*.lst

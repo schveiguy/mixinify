@@ -1,0 +1,12 @@
+{
+	"authors": [
+		"Steven Schveighoffer"
+	],
+	"copyright": "Copyright © 2020, Steven Schveighoffer",
+	"dependencies": {
+		"libdparse": "~>0.17.0"
+	},
+	"description": "Adjusts a D project to use mixin templates for implementation, so multiple versions can be used with different package names",
+	"license": "Boost-1.0",
+	"name": "mixinify"
+}
