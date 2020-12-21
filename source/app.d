@@ -10,11 +10,16 @@ void main(string[] args)
     auto lexer = filedata.byToken;
     size_t lastPosOutput = 0;
     int importStart = -1;
+    int importPrefix = -1;
     bool hasStd = false;
     bool foundModuleStart = false;
     foreach(token; lexer)
     {
-
+        if(token == tok!"static" || token == tok!"public" || token == tok!"private")
+        {
+            if(importPrefix == -1)
+                importPrefix = cast(int)token.index;
+        }
         // find the module statement
         if(token == tok!"module")
         {
@@ -40,7 +45,10 @@ void main(string[] args)
         }
         else if(token == tok!"import")
         {
-            importStart = cast(int)token.index;
+            if(importPrefix != -1)
+                importStart = importPrefix;
+            else
+                importStart = cast(int)token.index;
             hasStd = false;
         }
         else if(foundModuleStart && token == tok!";")
@@ -55,6 +63,11 @@ void main(string[] args)
             // TODO: make this work
             // writeln(`mixin template _X(string pack):`);
             writeln(`mixin template _X(string pack) {`);
+        }
+
+        if(token != tok!"static" && token != tok!"public" && token != tok!"private" && token != tok!"whitespace")
+        {
+            importPrefix = -1;
         }
     }
     write(cast(char[])filedata[lastPosOutput .. $]);
